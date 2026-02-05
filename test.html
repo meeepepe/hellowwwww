@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ดีกันนะค้าบ ❤️</title>
+    <!-- นำเข้าฟอนต์น่ารักๆ จาก Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Itim&family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #ff8fa3;
+            --secondary-color: #ff4d6d;
+            --bg-color: #fff0f3;
+            --text-color: #590d22;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--bg-color);
+            font-family: 'Kanit', sans-serif;
+            overflow: hidden; /* ป้องกัน Scrollbar ตอนหัวใจตก */
+            position: relative;
+        }
+
+        /* พื้นหลังลายจุดจางๆ */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(#ffccd5 2px, transparent 2px);
+            background-size: 30px 30px;
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.2);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        h1 {
+            font-family: 'Itim', cursive;
+            color: var(--secondary-color);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: var(--text-color);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .gif-container {
+            margin-bottom: 20px;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gif-container img {
+            max-height: 100%;
+            max-width: 100%;
+            border-radius: 15px;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            position: relative; /* เพื่อให้ปุ่มขยับอ้างอิงพื้นที่นี้ได้ในระดับหนึ่ง */
+            min-height: 60px; /* จองพื้นที่ไว้ */
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Itim', cursive;
+            transition: all 0.3s ease;
+            outline: none;
+            user-select: none;
+        }
+
+        .btn-yes {
+            background-color: #80ed99;
+            color: #007f5f;
+            box-shadow: 0 4px 15px rgba(128, 237, 153, 0.4);
+        }
+
+        .btn-yes:hover {
+            background-color: #57cc99;
+            transform: scale(1.05);
+        }
+
+        .btn-no {
+            background-color: var(--secondary-color);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+            position: relative; /* เริ่มต้นเป็น relative */
+        }
+
+        /* Animation หัวใจลอย */
+        .heart {
+            position: fixed;
+            color: var(--secondary-color);
+            font-size: 20px;
+            top: -10vh;
+            animation: fall linear forwards;
+            z-index: 5;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+
+        /* ข้อความตอนสำเร็จ */
+        .success-message {
+            display: none;
+            margin-top: 20px;
+            color: var(--secondary-color);
+            font-weight: bold;
+            font-size: 1.5rem;
+            animation: popIn 0.5s ease;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* ซ่อนปุ่มเมื่อสำเร็จ */
+        .hidden {
+            display: none !important;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="gif-container" id="gifContainer">
+            <!-- เปลี่ยนเป็นรูปเพนกวินทำหน้าเศร้า -->
+            <img src="https://www.pbs.org/wnet/nature/files/2016/02/SnowChick-5.gif" alt="Sad Penguin">
+        </div>
+        
+        <h1 id="headerText">ขอโทษนะค้าบ 🥺</h1>
+        <p id="bodyText">
+            เค้าผิดไปแล้ว... ที่ทำตัวเป็นเด็กดื้อ <br>
+            จะไม่ทำแบบนั้นอีกแล้ว สัญญาครับ<br>
+            <b>ดีกันนะ?</b>
+        </p>
+
+        <div class="btn-group">
+            <button class="btn-yes" onclick="forgiveMe()">หายงอนแล้ว</button>
+            <button class="btn-no" id="btnNo" onmouseover="moveButton()" ontouchstart="moveButton()">ไม่หาย!</button>
+        </div>
+
+        <div class="success-message" id="successMsg">
+            ขอบคุณที่ยกโทษให้นะครับ ❤️<br>
+            <span style="font-size: 1rem; color: #555;">(เย็นนี้ไปหาอะไรอร่อยๆ กินกันนะ)</span>
+        </div>
+    </div>
+
+    <script>
+        const btnNo = document.getElementById('btnNo');
+        const headerText = document.getElementById('headerText');
+        const bodyText = document.getElementById('bodyText');
+        const gifContainer = document.getElementById('gifContainer');
+        const successMsg = document.getElementById('successMsg');
+        const btnGroup = document.querySelector('.btn-group');
+
+        // ฟังก์ชันขยับปุ่มหนี
+        function moveButton() {
+            // หาขนาดของหน้าจอ
+            const x = Math.random() * (window.innerWidth - btnNo.offsetWidth - 50);
+            const y = Math.random() * (window.innerHeight - btnNo.offsetHeight - 50);
+
+            // เปลี่ยน position เป็น fixed เพื่อให้ขยับไปได้ทั่วหน้าจอ
+            btnNo.style.position = 'fixed';
+            btnNo.style.left = `${x}px`;
+            btnNo.style.top = `${y}px`;
+        }
+
+        // ฟังก์ชันเมื่อกดปุ่ม หายงอน
+        function forgiveMe() {
+            // 1. เปลี่ยนรูปเป็นเพนกวินเดินดุ๊กดิ๊ก (ตามลิงก์ที่ให้มา)
+            gifContainer.innerHTML = '<img src="https://www.pbs.org/wnet/nature/files/2016/02/SnowChick-Gif8b.gif" alt="Cute Penguin Walking">';
+            
+            // 2. ซ่อนปุ่ม และเปลี่ยนข้อความ
+            btnGroup.classList.add('hidden');
+            headerText.innerText = "ขอบคุณครับ ❤️";
+            bodyText.style.display = 'none';
+            successMsg.style.display = 'block';
+
+            // 3. ปล่อยหัวใจตก
+            createHearts();
+        }
+
+        // ฟังก์ชันสร้างฝนหัวใจ
+        function createHearts() {
+            const heartInterval = setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = ['❤️', '💖', '🥰', '🌸', '✨'][Math.floor(Math.random() * 5)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = Math.random() * 2 + 3 + 's'; // ตก 3-5 วินาที
+                
+                document.body.appendChild(heart);
+
+                // ลบ element เมื่อตกถึงพื้น
+                setTimeout(() => {
+                    heart.remove();
+                }, 5000);
+            }, 100);
+
+            // หยุดสร้างหลังจาก 10 วินาที เพื่อไม่ให้เครื่องค้าง
+            setTimeout(() => {
+                clearInterval(heartInterval);
+            }, 10000);
+        }
+    </script>
+</body>
+</html>
